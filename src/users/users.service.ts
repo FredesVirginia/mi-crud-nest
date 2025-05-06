@@ -12,4 +12,21 @@ export class UsersService {
         const newUser = this.userRepository.create(user)
         return this.userRepository.save(newUser)
     }
+
+    getUser( id : number){
+       return  this.userRepository.findOne({
+            where : {
+                id
+            }
+        })
+    }
+
+
+    deleteUser( id: number){
+        this.userRepository.delete({id : id})
+    }
+
+    getUsers(){
+      return  this.userRepository.find()
+    }
 }
