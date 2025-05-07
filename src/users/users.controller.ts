@@ -1,8 +1,10 @@
 
 import { UsersService } from '../users/users.service';
-import { Controller, Post , Body , Get , Param , Delete} from '@nestjs/common';
+import { Controller, Post , Body , Get , Param , Delete, Patch} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.entity';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateProfileDto } from './dto/create-profile-dto';
 
 @Controller('users')
 export class UsersController {
@@ -30,5 +32,18 @@ export class UsersController {
     createUser(@Body() newUser : CreateUserDto){
        return this.usersService.createUser(newUser)
     }
+
+    @Patch(':id')
+    updateUser( @Param ('id') id:number , @Body() user : UpdateUserDto){
+        return this.usersService.updateUser(id , user)
+    }
+
+    @Post(':id/profile')
+        createProfile(
+            @Param('id') id :number,
+            @Body() profile : CreateProfileDto
+        ){
+            return this.usersService.createProfile(id , profile)
+        }
 
 }
